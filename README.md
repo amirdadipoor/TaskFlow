@@ -12,7 +12,7 @@ TaskFlow is a collaborative project management platform inspired by Trello. It h
     - Lists are used to categorize stages (e.g., "To Do," "In Progress," "Done").
 4. Card
     - Cards represent individual tasks and can contain checklists, due dates, attachments, and more.
-    - Cards has (title , description , activity logs (personal and system) , label (color label) , copy card , has checklist (with checkbox and percent) , attachment , set cover for card , set date for this card)
+    - Cards has (title , description , activity logs (personal and system) , label (color label) , join member to card , move to another list , copy card , has checklist (with checkbox and percent) , attachment , set cover for card , set date for this card)
 
 ## Drag and drop 
    - Users can easily move cards between lists to reflect progress.
@@ -25,6 +25,16 @@ TaskFlow is a collaborative project management platform inspired by Trello. It h
 
 ## Power-Ups (Integrations)
    - Trello integrates with tools like Slack, Google Drive, Jira, and more, allowing extended functionality.
+
+--------------------------------------------------------------------------------------------------
+# Our features
+1. Create Workspace | Edit  for team representation
+2. create Borad | Edit | Delete -> up to 5 Item
+3. Create list and asign it to special Borad -> up to 5 item
+4. Create Card into list and drag & drop cards between lists
+5. Set deadLine time to task|cards and change color after expired
+6. Edit | delete | done works in Cards
+7. Archive Cards
 
 
 
