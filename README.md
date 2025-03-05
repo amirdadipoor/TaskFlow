@@ -25,3 +25,13 @@ TaskFlow is a collaborative project management platform inspired by Trello. It h
 
 ## Power-Ups (Integrations)
    - Trello integrates with tools like Slack, Google Drive, Jira, and more, allowing extended functionality.
+
+
+
+# useful git codes
+
+```shell
+
+git restore --staged .
+git rm --cached -r .
+```
