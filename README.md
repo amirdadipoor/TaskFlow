@@ -30,7 +30,7 @@ TaskFlow is a collaborative project management platform inspired by Trello. It h
 # Our features
 1. Create Workspace | Edit  for team representation
 2. create Borad | Edit | Delete -> up to 5 Item
-3. Create list and asign it to special Borad -> up to 5 item
+3. Create list and asign it to special Borad -> up to 3 item
 4. Create Card into list and drag & drop cards between lists
 5. Set deadLine time to task|cards and change color after expired
 6. Edit | delete | done works in Cards
