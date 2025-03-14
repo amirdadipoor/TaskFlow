@@ -100,3 +100,8 @@ git push origin my-branch
 ```
 
 Now your branch contains the latest changes from the upstream repository. 🚀
+
+
+# Enable tailwind DarkMode
+
+for Enableing dark mode in your app replace all `strak` classess in your html code with `dark` and enjoy :)
