@@ -105,3 +105,12 @@ Now your branch contains the latest changes from the upstream repository. 🚀
 # Enable tailwind DarkMode
 
 for Enableing dark mode in your app replace all `strak` classess in your html code with `dark` and enjoy :)
+
+# Reinitialize All Tooltips After Adding New Elements
+
+After adding new elements, manually reinitialize all tooltips using Flowbite’s initTooltips() function.
+
+```javascript
+// ✅ 4️⃣ Reinitialize ALL tooltips (Fixes old + new tooltips)
+initTooltips();
+```
