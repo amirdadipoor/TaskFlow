@@ -1,19 +1,26 @@
+let VisibleCreateNewBoradPanel = document.getElementById('create-new-board');
+let CreateItemBox = document.getElementById('create-new-item-box');
+let CreateItemTag = document.getElementById('create-new-item-tag');
+let CreateItemInput = document.getElementById('create-new-item-input');
+let CreateNewItemButton = document.getElementById('create-new-item-button');
+let CancelCreationButton = document.getElementById('cancel-creation-button');
+let CreateItemSwitch = 0; // 0 : off , 1 = create board , 2 = create list , 3 = create card
+
+let myBoards = [
+    {id: 1 , board_name : 'پروژه 1' , stage_lists : [] },
+    {id: 2 , board_name : 'پروژه 2' , stage_lists : [] },
+    {id: 3 , board_name : 'پروژه 3' , stage_lists : [] },
+    {id: 4 , board_name : 'پروژه 4' , stage_lists : [] },
+    //{id: 5 , board_name : 'پروژه 5' , stage_lists : [] },
+];
+
+// in final we most load data from local storage
 const loadBoards = () => {
-    return [
-        {id: 1 , board_name : 'پروژه 1' , stage_lists : [] },
-        {id: 2 , board_name : 'پروژه 2' , stage_lists : [] },
-        {id: 3 , board_name : 'پروژه 3' , stage_lists : [] },
-        {id: 4 , board_name : 'پروژه 4' , stage_lists : [] },
-        {id: 5 , board_name : 'پروژه 5' , stage_lists : [] },
-    ]
+    return myBoards;
 }
 
-new Board( {
-    container: document.querySelector('#board-container'),
-    list : loadBoards() ,
-    template : (item) => {
-        return `
-            <li>
+const createNewBoardElement = (item) => {
+    return `    <li>
                 <a href="#" class="flex items-center justify-between p-2 text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 stark:hover:bg-gray-700 stark:text-white group">
                     <div class="flex items-center ">
                         <svg class="shrink-0 w-5 h-5 text-gray-500 transition duration-75 stark:text-gray-400 group-hover:text-gray-900 stark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
@@ -46,5 +53,81 @@ new Board( {
                 </a>
             </li>
        ` ;
+}
+
+const createNewBoard = (BoardName) => {
+    console.log(BoardName);
+    let BoardId = 1;
+    // generate board id
+    if ( myBoards.length > 0 ) {
+        BoardId = myBoards.length + 1;
+    }
+    let BoardObj = {id: BoardId , board_name : BoardName , stage_lists : [] };
+    myBoards.push(BoardObj);
+    console.log(BoardObj);
+
+    let boardElement = createNewBoardElement(BoardObj);
+    document.querySelector('#board-container').innerHTML += boardElement;
+
+
+    CreateItemBox.classList.add('hidden');
+
+}
+
+VisibleCreateNewBoradPanel.addEventListener('click' , () => {
+    //console.log("AAAAA");
+    let boards = loadBoards();
+    if ( boards.length >= 5 ) {
+        alert("شما به حداکثر تعداد Board در پلن خود رسیده اید . لطفا پلن خود را به Premium ارتقاء دهید")
+        return false;
+    }
+
+    CreateItemSwitch = 1;
+    CreateItemBox.classList.remove('hidden');
+    CreateItemTag.innerText = 'ایجاد بورد جدید';
+    CreateItemInput.placeholder = " عنوان بورد را وارد نمایید ..."
+
+
+});
+
+CreateNewItemButton.addEventListener('click' , () => {
+    let newItemText = CreateItemInput.value.trim();
+
+    if (typeof newItemText === "string" && newItemText.length === 0 || newItemText === null )  {
+        // show error to user Enter valid data
+        alert("لطفا عبارت معتبر را وارد کنید");
+        console.error("لطفا عبارت معتبر را وارد کنید")
+        return false;
+    }
+
+    switch ( CreateItemSwitch  ) { // return false; // shit
+        case 0:
+             return false;
+        case 1:
+             return createNewBoard(newItemText);
+        case 2:
+             return CreateItemSwitch = 3;
+        case 3:
+             return CreateItemSwitch = 4;
+        default:
+             return false;
+            //break;
     }
 })
+
+CancelCreationButton.addEventListener('click' , () => {
+    CreateItemSwitch = 0;
+    CreateItemBox.classList.add('hidden');
+})
+
+
+
+new Board( {
+    container: document.querySelector('#board-container'),
+    list : loadBoards() ,
+    template : (item) => {
+        return createNewBoardElement(item)
+    }
+})
+
+

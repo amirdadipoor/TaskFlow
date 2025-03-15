@@ -42,7 +42,7 @@
                 </ul>
                 <ul class="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 stark:border-gray-700">
                     <li>
-                        <a href="javascript:;" class="flex items-center justify-between p-2 text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 stark:hover:bg-gray-700 stark:text-white group">
+                        <a href="javascript:;" id="create-new-board" class="flex items-center justify-between p-2 text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 stark:hover:bg-gray-700 stark:text-white group">
                             
                             <span class="mr-5">برد جدید</span>
                             
@@ -90,12 +90,12 @@
 
 -->
                 </ul>
-                <div class="drawer">
-                    <h2 class="menu-title">ایجاد لیست جدید</h2>
-                    <input type="text" id="list-title" placeholder="عنوان لیست">
-                    <br>
-                    <button id="create-list">ایجاد</button>
-                    <button id="cancle-list">انصراف</button>
+                <div class="drawer hidden" id="create-new-item-box"> <!-- item : board , list , card ,  -->
+                    <h2 class="menu-title" id="create-new-item-tag">ایجاد لیست جدید</h2>
+                    <input type="text" class="mb-3" id="create-new-item-input" placeholder="عنوان لیست">
+                    <br class="m-4">
+                    <button id="create-new-item-button" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-3 py-1.5 me-2 mb-2 stark:bg-green-600 stark:hover:bg-green-700 stark:focus:ring-green-800">ایجاد</button>
+                    <button id="cancel-creation-button" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-3 py-1.5 me-2 mb-2 stark:focus:ring-yellow-900">انصراف</button>
                 </div>
             </div>
         </aside>
@@ -130,6 +130,8 @@
             </li>
         </ul>
     </div>
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     <script src="board.js"></script>
