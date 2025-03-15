@@ -6,6 +6,10 @@ class Board {
         //this.options = options;
         this.showList(options);
         this.list = options.list || [];
+        this.addBasicBoardEventAction(options.container);
+        for (let boardItem in options.container.children) {
+            this.addBasicBoardEventAction(boardItem);
+        }
     }
 
 
@@ -18,6 +22,28 @@ class Board {
 
         list.forEach(item => container.innerHTML += template(item));
 
+    }
+
+    addBasicBoardEventAction(BoardElement) {
+        document.querySelectorAll(".edit-board-button").forEach((button) => {
+            button.addEventListener("click", (e) => {
+                console.log(button)
+            })
+        })
+
+        document.querySelectorAll(".delete-board-button").forEach((button) => {
+            button.addEventListener("click", (e) => {
+                console.log(button)
+            })
+        })
+    }
+
+    handleEditBoardName (e) {
+        console.log(this.list)
+    }
+
+    handleDeleteBoard (e) {
+        console.log(this.list)
     }
 
 }
