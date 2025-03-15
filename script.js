@@ -69,7 +69,7 @@ const createNewBoard = (BoardName) => {
     let boardElement = createNewBoardElement(BoardObj);
     document.querySelector('#board-container').innerHTML += boardElement;
 
-
+    initTooltips();
     CreateItemBox.classList.add('hidden');
 
 }
