@@ -27,7 +27,7 @@ const createNewBoardElement = (item) => {
                             <path d="M18 0H6a2 2 0 0 0-2 2h14v12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Z"/>
                             <path d="M14 4H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2ZM2 16v-6h12v6H2Z"/>
                         </svg>
-                        <span class="ms-3">${item.board_name}</span>
+                        <span class="ms-3 board-name-label">${item.board_name}</span>
                     </div>
 
                     <div class="flex items-center ">
@@ -123,11 +123,12 @@ CancelCreationButton.addEventListener('click' , () => {
 
 
 new Board( {
-    container: document.querySelector('#board-container'),
+    container: document.getElementById('board-container'),
     list : loadBoards() ,
     template : (item) => {
         return createNewBoardElement(item)
-    }
+    } ,
+    inputBox : CreateItemBox,
 })
 
 
