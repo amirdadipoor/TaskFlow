@@ -23,7 +23,8 @@ class Board {
         if (!Array.isArray(list)) { throw new Error("No list Exists provided!"); }
         if (!template) { throw new Error("No template Exists provided!"); }
 
-        list.forEach(item => container.innerHTML += template(item));
+        //let list = this.loadBoardFromLocalStorage();
+        this.list.forEach(item => container.innerHTML += template(item));
 
     }
 
@@ -74,6 +75,14 @@ class Board {
 
 
 
+    }
+
+    loadBoardFromLocalStorage = () => {
+        return JSON.parse(localStorage.getItem(ApplicationStorageName)) || [] ;
+    }
+
+    saveBoardsIntoLocalStorage = (data = []) => {
+        return localStorage.setItem(ApplicationStorageName, JSON.stringify(data));
     }
 
     handleEditBoardName (e) {

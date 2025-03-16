@@ -6,6 +6,8 @@ let CreateNewItemButton = document.getElementById('create-new-item-button');
 let CancelCreationButton = document.getElementById('cancel-creation-button');
 let CreateItemSwitch = 0; // 0 : off , 1 = create board , 2 = create list , 3 = create card
 
+const ApplicationStorageName = "TrelloApplicationStorage";
+
 let myBoards = [
     {id: 1 , board_name : 'پروژه 1' , stage_lists : [] },
     {id: 2 , board_name : 'پروژه 2' , stage_lists : [] },
@@ -17,6 +19,14 @@ let myBoards = [
 // in final we most load data from local storage
 const loadBoards = () => {
     return myBoards;
+}
+
+const loadBoardFromLocalStorage = () => {
+    return JSON.parse(localStorage.getItem(ApplicationStorageName)) || [] ;
+}
+
+const saveBoardsIntoLocalStorage = (data = []) => {
+    return localStorage.setItem(ApplicationStorageName, JSON.stringify(data));
 }
 
 const createNewBoardElement = (item) => {
@@ -56,15 +66,17 @@ const createNewBoardElement = (item) => {
 }
 
 const createNewBoard = (BoardName) => {
-    console.log(BoardName);
+    //console.log(BoardName);
     let BoardId = 1;
     // generate board id
     if ( myBoards.length > 0 ) {
         BoardId = myBoards.length + 1;
     }
     let BoardObj = {id: BoardId , board_name : BoardName , stage_lists : [] };
+    let myBoards = loadBoardFromLocalStorage();
     myBoards.push(BoardObj);
-    console.log(BoardObj);
+    //console.log(BoardObj);
+    saveBoardsIntoLocalStorage(myBoards);
 
     let boardElement = createNewBoardElement(BoardObj);
     document.querySelector('#board-container').innerHTML += boardElement;
@@ -121,10 +133,9 @@ CancelCreationButton.addEventListener('click' , () => {
 })
 
 
-
 new Board( {
     container: document.getElementById('board-container'),
-    list : loadBoards() ,
+    list : loadBoardFromLocalStorage() ,
     template : (item) => {
         return createNewBoardElement(item)
     } ,
