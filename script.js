@@ -10,6 +10,8 @@ let CreateItemSwitch = 0; // 0 : off , 1 = create board , 2 = create list , 3 = 
 const ApplicationStorageName = "TrelloApplicationStorage";
 
 
+
+
 const createNewBoardElement = (item) => {
     return `    <li>
                 <a href="#" class="flex items-center justify-between p-2 text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 stark:hover:bg-gray-700 stark:text-white group">
