@@ -138,3 +138,7 @@ html {
 .close:hover {
     transform: scale(1.2);
 }
+
+.draggable.dragging-element {
+    opacity: 0.4;
+}

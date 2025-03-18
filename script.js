@@ -11,7 +11,6 @@ const ApplicationStorageName = "TrelloApplicationStorage";
 
 
 
-
 const createNewBoardElement = (item) => {
     return `    <li>
                 <a href="#" class="flex items-center justify-between p-2 text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 stark:hover:bg-gray-700 stark:text-white group">
@@ -65,4 +64,69 @@ new Board( {
     ApplicationStorageName : ApplicationStorageName,
 })
 
+//-------------------------------------------------------------------------------------------- Section List
+
+const draggableElements = document.getElementsByClassName("draggable");
+let draggingElement = null;
+
+function HandleDragEvent (event) {
+    //console.log(this);
+    console.log('drag' , event.target);
+
+    draggingElement = event.target;
+    event.target.classList.add("dragging-element");
+    event.dataTransfer.dropEffect = 'move';
+    event.dataTransfer.setData('text/html', draggingElement.outerHTML);
+}
+
+function HandleDragStartEvent (event) {
+    console.log('dragstart' , event.target);
+}
+
+function HandleDragEnterEvent (event) {
+    console.log('dragenter' , event.target);
+}
+
+function HandleDragOverEvent (event) {
+    //console.log('dragover' , event.target);
+    if (event.preventDefault) { event.preventDefault(); }
+
+    event.target.classList.add("border-t-3");
+    event.target.classList.add("border-t-indigo-500");
+}
+
+function HandleDragLeaveEvent (event) {
+    event.target.classList.remove("border-t-3");
+    event.target.classList.remove("border-t-indigo-500");
+}
+
+function HandleDropEvent (event) {
+    console.log('drop' , event.target);
+}
+
+function HandleDragEndEvent (event) {
+    //console.log('dragend' , event.target);
+    event.target.classList.remove("dragging-element");
+}
+
+const addDragAndDropHandlers = (draggable) => {
+    draggable.setAttribute('draggable', true);
+
+    draggable.addEventListener('drag',(event) => HandleDragEvent(event) )
+    draggable.addEventListener('dragstart',(event) => HandleDragStartEvent(event) )
+    draggable.addEventListener('dragenter',(event) => HandleDragEnterEvent(event) )
+    draggable.addEventListener('dragover',(event) => HandleDragOverEvent(event) )
+    draggable.addEventListener('dragleave',(event) => HandleDragLeaveEvent(event) )
+    draggable.addEventListener('drop',(event) => HandleDropEvent(event) )
+    draggable.addEventListener('dragend',(event) => HandleDragEndEvent(event) )
+}
+
+
+
+
+
+
+for (let draggable of draggableElements) {
+    addDragAndDropHandlers(draggable);
+}
 
