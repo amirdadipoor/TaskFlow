@@ -67,29 +67,43 @@ new Board( {
 //-------------------------------------------------------------------------------------------- Section List
 
 const draggableElements = document.getElementsByClassName("draggable");
+const draggableLists = document.querySelectorAll(".drag-zone");
+
+
 let draggingElement = null;
+/*
 
 function HandleDragEvent (event) {
     //console.log(this);
-    console.log('drag' , event.target);
+    //console.log('drag' , event.target);
 
-    draggingElement = event.target;
-    event.target.classList.add("dragging-element");
-    event.dataTransfer.dropEffect = 'move';
-    event.dataTransfer.setData('text/html', draggingElement.outerHTML);
+
 }
 
 function HandleDragStartEvent (event) {
     console.log('dragstart' , event.target);
+
+    draggingElement = event.target;
+
+
+    event.dataTransfer.setData('text/html', event.target.outerHTML);
+
+    event.dataTransfer.dropEffect = 'move';
+
+    event.target.classList.add("dragging-element");
 }
 
 function HandleDragEnterEvent (event) {
-    console.log('dragenter' , event.target);
+    //console.log('dragenter' , event.target);
 }
 
 function HandleDragOverEvent (event) {
     //console.log('dragover' , event.target);
     if (event.preventDefault) { event.preventDefault(); }
+
+    if (!event.target.classList.contains('draggable')) {
+        return;
+    }
 
     event.target.classList.add("border-t-3");
     event.target.classList.add("border-t-indigo-500");
@@ -102,17 +116,35 @@ function HandleDragLeaveEvent (event) {
 
 function HandleDropEvent (event) {
     console.log('drop' , event.target);
+
+    event.target.classList.remove("border-t-3");
+    event.target.classList.remove("border-t-indigo-500");
+
+    let target = event.target.closest('.draggable');
+    console.log("parent" ,target);
+    //console.log("target" ,target);
+    if (target != draggingElement) {
+        let dropHTML = event.dataTransfer.getData('text/html');
+        //console.log("drop element " ,dropHTML);
+
+        target.parentNode.removeChild(draggingElement);
+        target.insertAdjacentHTML('beforebegin' , dropHTML);
+        addDragAndDropHandlers(target.previousSibling)
+    }
+
 }
 
 function HandleDragEndEvent (event) {
-    //console.log('dragend' , event.target);
+    console.log('dragend' , event.target);
     event.target.classList.remove("dragging-element");
+
+    reinitializeFlowbiteComponents();
 }
 
 const addDragAndDropHandlers = (draggable) => {
     draggable.setAttribute('draggable', true);
 
-    draggable.addEventListener('drag',(event) => HandleDragEvent(event) )
+    //draggable.addEventListener('drag',(event) => HandleDragEvent(event) )
     draggable.addEventListener('dragstart',(event) => HandleDragStartEvent(event) )
     draggable.addEventListener('dragenter',(event) => HandleDragEnterEvent(event) )
     draggable.addEventListener('dragover',(event) => HandleDragOverEvent(event) )
@@ -122,11 +154,124 @@ const addDragAndDropHandlers = (draggable) => {
 }
 
 
+function reinitializeFlowbiteComponents() {
+    // Reinitialize all tooltips
+    /!*document.querySelectorAll("[data-tooltip-target]").forEach((tooltipTriggerEl) => {
+        const tooltipId = tooltipTriggerEl.getAttribute("data-tooltip-target");
+        const tooltipEl = document.getElementById(tooltipId);
+        if (tooltipEl) {
+            new Flowbite.Tooltip(tooltipEl, tooltipTriggerEl);
+        }
+    });*!/
 
+    // Reinitialize all dropdowns
+    initDropdowns()
 
+    // Reinitialize other components (if needed)
+}
 
 
 for (let draggable of draggableElements) {
-    addDragAndDropHandlers(draggable);
+    //addDragAndDropHandlers(draggable);
 }
 
+*/
+/*document.addEventListener('dragstart', (event) => {
+    if (event.target.classList.contains('draggable')) {
+        console.log('dragstart' , event.target);
+        draggingElement = event.target;
+        event.dataTransfer.setData('text/html', event.target.outerHTML);
+        event.dataTransfer.dropEffect = 'move';
+        event.target.classList.add("dragging-element");
+    }
+})*/
+
+const handleDragStartEvent = (element) => {
+    element.addEventListener('dragstart', (event) => {
+        console.log('dragstart' , event.target);
+        draggingElement = event.target;
+        event.dataTransfer.setData('text/html', event.target.outerHTML);
+        event.dataTransfer.dropEffect = 'move';
+        event.target.classList.add("dragging-element");
+    })
+
+    element.addEventListener('drop', (event) => {
+        console.log('drop' , event.target);
+    })
+}
+
+Array.from(draggableElements).forEach((draggableElement) => {
+    handleDragStartEvent(draggableElement);
+})
+
+draggableLists.forEach((list)=> {
+    /*list.addEventListener("dragstart", (event) => {
+        console.log('dragstart' , event.target);
+    });*/
+
+    list.addEventListener("dragenter", (event) => {
+        console.log('dragenter' , event.target);
+    })
+
+    list.addEventListener("dragover", (event) => {
+        console.log('dragover' , event.target);
+        event.preventDefault();
+
+    })
+
+    list.addEventListener("dragleave", (event) => {
+        console.log('dragleave' , event.target);
+    })
+
+    list.addEventListener("dragend", (event) => {
+        console.log('dragend' , event.target);
+        event.target.classList.remove("dragging-element");
+        initDropdowns()
+    })
+
+    list.addEventListener('drop' , (event) => {
+        console.log('drop' , event.target);
+        event.preventDefault();
+        if(draggingElement) {
+            list.appendChild(draggingElement);
+            draggingElement = null;
+        }
+
+
+
+    })
+})
+
+/*document.addEventListener('drop', (event) => {
+    if (event.target.classList.contains('draggable')) {
+        console.log('drop' , event.target);
+
+    }
+})*/
+
+/*const handleDragAndDropEventsForLists = (list) => {
+    //d.addEventListener("dragstart", handleDragAndDropEventsForLists);
+
+    list.addEventListener('drop', (event) => {
+
+        console.log('drop', event);
+        event.preventDefault();
+        if (draggingElement) {
+            draggingElement.classList.remove("dragging-element");
+            draggingElement = null;
+        }
+    });
+}*/
+
+/*for (draggableList of draggableLists) {
+    handleDragAndDropEventsForLists(draggableList);
+}*/
+/*draggableLists.forEach( (draggable) => {
+    //console.log(draggable);
+    draggable.addEventListener('drop', (event) => {
+        event.preventDefault();
+        console.log('drop', event.target);
+    })
+})*/
+
+//console.log(draggableLists);
