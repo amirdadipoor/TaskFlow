@@ -188,15 +188,50 @@ for (let draggable of draggableElements) {
 
 const handleDragStartEvent = (element) => {
     element.addEventListener('dragstart', (event) => {
-        console.log('dragstart' , event.target);
+        console.log('drag start card' , event.target);
         draggingElement = event.target;
         event.dataTransfer.setData('text/html', event.target.outerHTML);
         event.dataTransfer.dropEffect = 'move';
         event.target.classList.add("dragging-element");
     })
 
+    element.addEventListener('dragenter', (event) => {
+        console.log('drag enter card' , event.target);
+    })
+
+    element.addEventListener('dragover', (event) => {
+        console.log('drag over card' , event.target);
+        event.preventDefault();
+
+    })
+
+    element.addEventListener('dragleave', (event) => {
+        console.log('drag leave card' , event.target);
+    })
+
+    element.addEventListener('dragend', (event) => {
+        console.log('drag end card' , event.target);
+        event.target.classList.remove("dragging-element");
+        initDropdowns()
+
+    })
+
+
     element.addEventListener('drop', (event) => {
-        console.log('drop' , event.target);
+        console.log('drop card' , event.target);
+        event.preventDefault();
+        let target = event.target.closest('.draggable');
+        if (target != draggingElement) {
+            let dropHTML = event.dataTransfer.getData('text/html');
+            //console.log("drop element " ,dropHTML);
+
+            target.parentNode.removeChild(draggingElement);
+            target.insertAdjacentHTML('beforebegin' , dropHTML);
+            handleDragStartEvent(target.previousSibling)
+        }
+
+        draggingElement = null;
+
     })
 }
 
