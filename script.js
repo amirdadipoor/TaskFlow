@@ -64,6 +64,12 @@ new Board( {
     ApplicationStorageName : ApplicationStorageName,
 })
 
+
+
+
+
+
+
 //-------------------------------------------------------------------------------------------- Section List
 
 const draggableElements = document.getElementsByClassName("draggable");
