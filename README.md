@@ -90,6 +90,7 @@ git merge upstream/upstream-branch
 ```shell
 git add .
 git commit -m "Resolved merge conflicts"
+git rm -r --cached myFolder
 ```
 
 6. Push the Changes to Your Repository
