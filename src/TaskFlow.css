@@ -1,0 +1,144 @@
+/*add new custom font called vazir*/
+@font-face {
+    font-family: vazir;
+    src: url(./fonts/Vazir.woff2) format('woff2'),
+         url(./fonts/Vazir.woff) format('woff'),
+         url(./fonts/Vazir.ttf) format('truetype');
+}
+/*add new custom font called vazir-bold*/
+@font-face {
+    font-family: vazir-bold;
+    src: url(./fonts/Vazir-Bold.woff2) format('woff2'),
+         url(./fonts/Vazir-Bold.woff) format('woff'),
+         url(./fonts/Vazir-Bold.ttf) format('truetype');
+}
+
+html {
+    direction: rtl;
+    font-family: vazir;
+}
+
+#nav-style {
+    background-color: #229799;
+}
+
+#sidebar-style {
+    background-color: #F5F5F5;
+}
+
+#new-board {
+    transition: transform 0.3s ease;
+}
+#new-board:hover {
+    transform: scale(1.2);
+}
+
+.new-list-button {
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    width: 150px;  
+    height: 40px;
+    background-color: #229799; 
+    color: white;
+    border: none;
+    border-radius: 15px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.new-list-button:hover {
+    background-color: #145a5b;
+}
+
+.drawer {
+    align-items: center;
+    text-align: center;
+}
+
+.menu-title {
+    color: #424242;
+    text-shadow: 1px 1px black;
+    font-size: large;
+    font-family: vazir-bold;
+    margin-top: 20%;
+    margin-bottom: 10px;
+}
+
+#list-title {
+    padding: 7px;            
+    width: 100%;          
+    border: 1px solid rgb(106, 105, 105);
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+#create-list, #cancle-list {
+    width: 40%;
+    border: none;
+    padding: 7px 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+}
+
+#create-list {
+    background-color: #229799;
+    color: snow;
+    transition: transform 0.1s ease-in-out;
+}
+
+#create-list:hover {
+    background-color: #145a5b;
+    transform: scale(1.05);
+}
+
+#cancle-list {
+    background-color: #bdbdbd;
+    color: snow;
+    transition: transform 0.1s ease-in-out;
+}
+
+#cancle-list:hover {
+    background-color: #424242;
+    transform: scale(1.05);
+}
+
+.list-style {
+    position: absolute;
+    top: 100px;
+    width: 25%; 
+    /*height: 25%;*/
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 2%;
+    padding: 20px;
+    justify-content: space-between;
+}
+
+.close {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 15px;
+    border: none;
+    border-radius: 4px;
+    transform: scale(1.01);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.close:hover {
+    transform: scale(1.2);
+}
+
+.draggable.dragging-element {
+    opacity: 0.4;
+}
