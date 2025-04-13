@@ -1,5 +1,19 @@
 
 class ListSection {
+
+    createNewButtonBuiler = () => {
+        let button = document.createElement("button");
+        button.classList.add("new-list-button");
+        return button;
+    }
+
+    createDivContainerElementBuilder = () => {
+        let div = document.createElement("div");
+        div.classList.add("show-list");
+        return div;
+    }
+
+
     render = () =>{
         return `
             <button class="new-list-button">+ ایجاد لیست جدید</button> 
