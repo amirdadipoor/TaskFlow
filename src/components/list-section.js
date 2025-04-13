@@ -1,5 +1,26 @@
 
 class ListSection {
+
+    ulTagContainerElement;
+
+    createAddNewListButtonBuilder() {
+        let button = document.createElement("button");
+        button.classList.add("new-list-button");
+        return button;
+    }
+
+    createDivMainContainerBuilder = () => {
+        let div = document.createElement("div");
+        div.classList.add("show-list");
+        return div;
+    }
+
+    createUlTagContainerBuilder = () => {
+        this.ulTagContainerElement = document.createElement("ul");
+        this.ulTagContainerElement.classList.add("list");
+        return this.ulTagContainerElement;
+    }
+
     render = () =>{
         return `
             <button class="new-list-button">+ ایجاد لیست جدید</button> 
