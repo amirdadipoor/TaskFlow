@@ -1,9 +1,12 @@
+import { EventBus } from './../utilities/event-bus';
 class ItemModel {
 
     modalHeaderNameTag;
     modalInputTag;
 
-
+    constructor() {
+        EventBus.addEventListener('addNewListEventTrigger' , event => this.prepareModalForAddNewList( event.detail.item ));
+    }
 
     render () {
         let mainDiv = document.createElement("div");
@@ -72,13 +75,34 @@ class ItemModel {
 
         this.modalInputTag = input;
 
-        modalBodyForm.innerHTML +=
-                `<button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    <span id="add-new-item-button-text" class="me-1 -ms-1">اضافه کردن ایتم جدید</span>
-                    <svg class=" w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                </button>` ;
+        let addButton = document.createElement("button");
+        let addButtonClassList = ["text-white","inline-flex","items-center","bg-blue-700","hover:bg-blue-800","focus:ring-4","focus:outline-none","focus:ring-blue-300","font-medium","rounded-lg","text-sm","px-5","py-2.5","text-center","dark:bg-blue-600","dark:hover:bg-blue-700","dark:focus:ring-blue-800"]
+        addButton.type = "submit";
+        addButton.classList.add(...addButtonClassList);
+        modalBodyForm.appendChild(addButton);
+
+        addButton.innerHTML += `
+            <span id="add-new-item-button-text" class="me-1 -ms-1">اضافه کردن ایتم جدید</span>
+            <svg class=" w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+        `;
+
+
+        addButton.addEventListener("click", (e) => {this.addNewItemHandler(e)})
+
+
 
         return mainDiv;
+    }
+
+    prepareModalForAddNewList = (item) => {
+        this.modalHeaderNameTag.innerHTML = "ایجاد لیست جدید"
+        this.modalInputTag = "نام لیست مورد نظر خود را وارد کنید"
+        document.getElementById("add-new-item-button-text").innerHTML = "اضافه کردن لیست جدید";
+        //document.getElementById("add-new-item-button").addEventListener('click', event => {this.addNewItemList(event)})
+    }
+
+    addNewItemHandler = (event) => {
+        console.log("12");
     }
 
 
