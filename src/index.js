@@ -2,6 +2,7 @@ import navbar from "./components/navbar"
 import sidebar from "./components/sidebar"
 import list from "./components/list-section"
 import ListButton from "./components/add-list-button"
+import ItemModel from "./components/create-item-modal"
 import "./style.css"
 import "./TaskFlow.css"
 
@@ -13,5 +14,8 @@ document.body.appendChild(navbar.render());
 document.body.appendChild(ListButton.render());
 document.body.appendChild(list.render());
 //document.body.innerHTML += list.oldrender();
+//document.body.innerHTML += ItemModel.oldrender();
 
-console.log("123")
+document.body.appendChild(ItemModel.render());
+
+//console.log("123")
