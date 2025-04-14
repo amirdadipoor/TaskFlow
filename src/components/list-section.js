@@ -34,6 +34,12 @@ class ListSection {
         ulTagContainer.appendChild(l1.render("عنوان لیست اول"));
         ulTagContainer.appendChild(l2.render("عنوان لیست دوم"));
         ulTagContainer.appendChild(l3.render("عنوان لیست سوم"));
+        ulTagContainer.appendChild(l3.render("عنوان لیست چهارم"));
+
+        l2.createNewCardElement("عنوان کارت 1")
+        l2.createNewCardElement("عنوان کارت 2")
+        l2.createNewCardElement("عنوان کارت 3")
+        l2.createNewCardElement("عنوان کارت 4")
 
         //empty.appendChild(this.createAddNewListButtonBuilder());
         //empty.appendChild(mainDiv);

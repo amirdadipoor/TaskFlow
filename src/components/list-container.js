@@ -1,4 +1,4 @@
-
+import CardElement from "./card-element";
 class ListContainer {
     ulTagContainerElement;
 
@@ -66,6 +66,12 @@ class ListContainer {
         span.classList.add("mt-5");
         span.appendChild(this.createAddNewItemButton());
         return span;
+    }
+
+    createNewCardElement = (cardname) => {
+        let Card = new CardElement();
+        //console.log(Card.render(cardname));
+        this.ulTagContainerElement.appendChild(Card.render(cardname));
     }
 
 

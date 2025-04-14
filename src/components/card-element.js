@@ -1,4 +1,6 @@
-import { v4 as uuidv4 } from 'uuid';
+import {stringify, v4 as uuidv4} from 'uuid';
+import { initDropdowns } from 'flowbite'
+import { EventBus } from './../utilities/event-bus';
 class CardElement {
     liTagContainer ;
     cardParentElement;
@@ -9,9 +11,15 @@ class CardElement {
     EditActionButton;
     DeleteActionButton
 
+    currentDraggingElementData = null;
+
     constructor() {
         this.dropDownContainerId = uuidv4();
         this.dropDownActionButtonId = uuidv4();
+
+        EventBus.addEventListener('draggingCardElement', (e) => {
+            this.currentDraggingElementData = e.detail.targetElement;
+        });
     }
 
 
@@ -57,11 +65,12 @@ class CardElement {
 
         let ulActions = document.createElement("ul");
         ulActions.classList.add("py-2");
+        ulActions.classList.add("bg-white");
         ulActions.setAttribute("aria-labelledby", this.dropDownContainerId);
 
         let liEditAction = document.createElement("li");
         this.EditActionButton = document.createElement("button");
-        let EditActionButtonClassList = ["block","px-4","py-2","text-sm","text-gray-700","hover:bg-gray-100","dark:hover:bg-gray-600","dark:text-gray-200","dark:hover:text-white"];
+        let EditActionButtonClassList = ["block","px-4","py-2","text-sm","bg-white","text-gray-700","hover:bg-gray-100","dark:hover:bg-gray-600","dark:text-gray-200","dark:hover:text-white"];
         this.EditActionButton.href = "#"
         this.EditActionButton.classList.add(...EditActionButtonClassList);
         this.EditActionButton.innerHTML += `ویرایش`;
@@ -69,7 +78,7 @@ class CardElement {
 
         let liDeleteAction = document.createElement("li");
         this.DeleteActionButton = document.createElement("button");
-        let DeleteActionButtonClassList = ["block","px-4","py-2","text-sm","text-gray-700","hover:bg-gray-100","dark:hover:bg-gray-600","dark:text-gray-200","dark:hover:text-white"];
+        let DeleteActionButtonClassList = ["block","px-4","py-2","text-sm","bg-white","text-gray-700","hover:bg-gray-100","dark:hover:bg-gray-600","dark:text-gray-200","dark:hover:text-white"];
         this.DeleteActionButton.href = "#"
         this.DeleteActionButton.classList.add(...DeleteActionButtonClassList);
         this.DeleteActionButton.innerHTML += 'حذف';
@@ -136,8 +145,56 @@ class CardElement {
         this.liTagContainer.draggable = true;
 
         this.liTagContainer.appendChild(this.createMainDivElement(CardName))
+        initDropdowns();
+        this.addDragAndDropEventsListenerToCard(this.liTagContainer)
+        //initTooltips();
 
-        return elementClassList;
+        return this.liTagContainer;
+    }
+
+    addDragAndDropEventsListenerToCard = (element) => {
+        element.addEventListener('dragstart', (event) => {
+            console.log('drag start card' , event.target);
+            let targetElement = event.target;
+            EventBus.dispatchEvent(new CustomEvent('draggingCardElement' , { detail: {  targetElement } } ));
+            event.dataTransfer.setData('text/html', event.target.outerHTML);
+            event.dataTransfer.dropEffect = 'move';
+            event.target.classList.add("dragging-element");
+        })
+        element.addEventListener('dragenter', (event) => {
+            console.log('drag enter card' , event.target);
+        })
+        element.addEventListener('dragover', (event) => {
+            console.log('drag over card' , event.target);
+            event.preventDefault();
+        })
+        element.addEventListener('dragleave', (event) => {
+            console.log('drag leave card' , event.target);
+        })
+        element.addEventListener('dragend', (event) => {
+            console.log('drag end card' , event.target);
+            event.target.classList.remove("dragging-element");
+            initDropdowns()
+        })
+        element.addEventListener('drop', (event) => {
+            console.log('drop card' , event.target , this.currentDraggingElementData);
+            event.preventDefault();
+            if (this.currentDraggingElementData == null) { return false; }
+            let target = event.target.closest('.draggable');
+
+            if (target !=  this.currentDraggingElementData) {
+                let dropHTML = event.dataTransfer.getData('text/html');
+                target.parentNode.removeChild(this.currentDraggingElementData);
+                target.insertAdjacentHTML('beforebegin' , dropHTML);
+                this.addDragAndDropEventsListenerToCard(target.previousSibling);
+            }
+
+            this.currentDraggingElementData = null;
+
+            //console.log('drop card' , event.target);
+            //let draggingCardElement =
+
+        })
     }
 
     render = (CardName) => {
@@ -146,4 +203,4 @@ class CardElement {
 
 }
 
-export default new CardElement();
+export default CardElement;

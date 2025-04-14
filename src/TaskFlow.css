@@ -158,3 +158,11 @@ ul.main-list-section li:nth-child(3) {
     right: 54%;
     background-color: #E1F7F5;
 }
+
+ul.main-list-section li:nth-child(4) {
+    right: 80%;
+    background-color: #CABFFD;
+}
+
+
+
