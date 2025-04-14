@@ -3,11 +3,7 @@ class ListSection {
 
     ulTagContainerElement;
 
-    createAddNewListButtonBuilder() {
-        let button = document.createElement("button");
-        button.classList.add("new-list-button");
-        return button;
-    }
+
 
     createDivMainContainerBuilder = () => {
         let div = document.createElement("div");
@@ -21,9 +17,24 @@ class ListSection {
         return this.ulTagContainerElement;
     }
 
-    render = () =>{
+    render = () => {
+        //let empty = document.createElement("");
+
+
+        let mainDiv = this.createDivMainContainerBuilder();
+        let ulTagContainer = this.createUlTagContainerBuilder();
+
+        mainDiv.appendChild(ulTagContainer);
+
+        //empty.appendChild(this.createAddNewListButtonBuilder());
+        //empty.appendChild(mainDiv);
+
+        return mainDiv;
+    }
+
+    oldrender = () =>{
         return `
-            <button class="new-list-button">+ ایجاد لیست جدید</button> 
+
             <div class="show-list">
                 <ul class="list" >
                     <li class="list-style" style="right: 2%; background-color: #7AB2B2;">
