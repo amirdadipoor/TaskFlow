@@ -1,16 +1,16 @@
 /*add new custom font called vazir*/
 @font-face {
     font-family: vazir;
-    src: url(./fonts/Vazir.woff2) format('woff2'),
-         url(./fonts/Vazir.woff) format('woff'),
-         url(./fonts/Vazir.ttf) format('truetype');
+    src: url(fonts/Vazir.woff2) format('woff2'),
+         url(fonts/Vazir.woff) format('woff'),
+         url(fonts/Vazir.ttf) format('truetype');
 }
 /*add new custom font called vazir-bold*/
 @font-face {
     font-family: vazir-bold;
-    src: url(./fonts/Vazir-Bold.woff2) format('woff2'),
-         url(./fonts/Vazir-Bold.woff) format('woff'),
-         url(./fonts/Vazir-Bold.ttf) format('truetype');
+    src: url(fonts/Vazir-Bold.woff2) format('woff2'),
+         url(fonts/Vazir-Bold.woff) format('woff'),
+         url(fonts/Vazir-Bold.ttf) format('truetype');
 }
 
 html {
