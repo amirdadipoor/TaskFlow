@@ -1,4 +1,4 @@
-
+import ListContainer from "./list-container"
 class ListSection {
 
     ulTagContainerElement;
@@ -14,6 +14,7 @@ class ListSection {
     createUlTagContainerBuilder = () => {
         this.ulTagContainerElement = document.createElement("ul");
         this.ulTagContainerElement.classList.add("list");
+        this.ulTagContainerElement.classList.add("main-list-section");
         return this.ulTagContainerElement;
     }
 
@@ -26,18 +27,30 @@ class ListSection {
 
         mainDiv.appendChild(ulTagContainer);
 
+        let l1 = new ListContainer()
+        let l2 = new ListContainer()
+        let l3 = new ListContainer()
+
+        ulTagContainer.appendChild(l1.render("عنوان لیست اول"));
+        ulTagContainer.appendChild(l2.render("عنوان لیست دوم"));
+        ulTagContainer.appendChild(l3.render("عنوان لیست سوم"));
+
         //empty.appendChild(this.createAddNewListButtonBuilder());
         //empty.appendChild(mainDiv);
 
         return mainDiv;
     }
 
+    addNewListToListContainer = () => {
+        let newlist = list;
+    }
+
     oldrender = () =>{
         return `
 
             <div class="show-list">
-                <ul class="list" >
-                    <li class="list-style" style="right: 2%; background-color: #7AB2B2;">
+                <ul class="list main-list-section" >
+                    <li class="list-style " style="right: 2%; background-color: #7AB2B2;">
                         <h6 class="mb-2">عنوان لیست اول</h6>
                         <ul class="drag-zone dropzone my-8 min-h-32">
         

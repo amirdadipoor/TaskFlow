@@ -8,8 +8,8 @@ class ListContainer {
 
         let li = document.createElement("li");
         li.classList.add("list-style");
-        li.style.right = "2%";
-        li.style.backgroundColor = color;
+        //li.style.right = "2%";
+        //li.style.backgroundColor = color;
 
         return li;
 
@@ -32,7 +32,7 @@ class ListContainer {
 
     createAddNewItemButton = () => {
         let button = document.createElement("button");
-        let elementClassList = ["text-gray bg-white","hover:bg-gray-100","focus:ring-4","focus:outline-none","focus:ring-blue-300","font-medium","rounded-lg","text-sm","px-5","py-2.5","text-center","inline-flex","items-center","dark:bg-blue-600","dark:hover:bg-blue-700","dark:focus:ring-blue-800"];
+        let elementClassList = ["text-gray","bg-white","hover:bg-gray-100","focus:ring-4","focus:outline-none","focus:ring-blue-300","font-medium","rounded-lg","text-sm","px-5","py-2.5","text-center","inline-flex","items-center","dark:bg-blue-600","dark:hover:bg-blue-700","dark:focus:ring-blue-800"];
         button.type = "button";
         button.classList.add(...elementClassList);
 
@@ -70,9 +70,9 @@ class ListContainer {
 
 
 
-    render = () => {
+    render = (listName) => {
         let mainLI = this.createListItemMainElement("#7AB2B2");
-        let header = this.createElementHeaderTag("عنوان لیست اول");
+        let header = this.createElementHeaderTag(listName);
         this.createUlTagContainerElement();
         let addNewItemSpan = this.createSpanElement();
         let deleteListButton = this.createDeleteListButton();
@@ -89,4 +89,4 @@ class ListContainer {
     }
 }
 
-export default new ListContainer();
+export default  ListContainer;

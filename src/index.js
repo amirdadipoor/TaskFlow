@@ -12,5 +12,6 @@ document.body.appendChild(navbar.render());
 //document.body.innerHTML += sidebar.render();
 document.body.appendChild(ListButton.render());
 document.body.appendChild(list.render());
+//document.body.innerHTML += list.oldrender();
 
 console.log("123")
