@@ -1,6 +1,16 @@
 import CardElement from "./card-element";
+import { initDropdowns } from 'flowbite'
+import { EventBus } from './../utilities/event-bus';
 class ListContainer {
     ulTagContainerElement;
+
+    currentDraggingElementData = null;
+
+    constructor() {
+        EventBus.addEventListener('draggingCardElement', (e) => {
+            this.currentDraggingElementData = e.detail.targetElement;
+        });
+    }
 
     createListItemMainElement = (color) => {
         // "#7AB2B2"
@@ -90,9 +100,41 @@ class ListContainer {
         mainLI.appendChild(addNewItemSpan);
         mainLI.appendChild(deleteListButton);
 
+        this.addDragAndDropToListContainer();
 
         return mainLI;
     }
+
+    addDragAndDropToListContainer = ( ) => {
+        this.ulTagContainerElement.addEventListener("dragenter", (event) => {
+            console.log('dragenter list' , event.target);
+        })
+        this.ulTagContainerElement.addEventListener("dragover", (event) => {
+            console.log('dragover list' , event.target);
+            event.preventDefault();
+        })
+        this.ulTagContainerElement.addEventListener("dragleave", (event) => {
+            console.log('dragleave list' , event.target);
+        })
+        this.ulTagContainerElement.addEventListener("dragend", (event) => {
+            console.log('dragend list'  , event.target);
+            event.target.classList.remove("dragging-element");
+            initDropdowns()
+        })
+        this.ulTagContainerElement.addEventListener("drop", (event) => {
+            console.log('drop list' , event.target , this.currentDraggingElementData);
+
+            event.preventDefault();
+            if(this.currentDraggingElementData) {
+                this.ulTagContainerElement.appendChild(this.currentDraggingElementData);
+                this.currentDraggingElementData = null;
+                //EventBus.dispatchEvent(new CustomEvent('finishDropCard' , { detail: {  finish : true } } ));
+            }
+        })
+
+    }
+
+
 }
 
 export default  ListContainer;

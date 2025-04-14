@@ -17,9 +17,11 @@ class CardElement {
         this.dropDownContainerId = uuidv4();
         this.dropDownActionButtonId = uuidv4();
 
+
         EventBus.addEventListener('draggingCardElement', (e) => {
             this.currentDraggingElementData = e.detail.targetElement;
         });
+
     }
 
 
@@ -182,8 +184,14 @@ class CardElement {
             if (this.currentDraggingElementData == null) { return false; }
             let target = event.target.closest('.draggable');
 
-            if (target !=  this.currentDraggingElementData) {
+            if (target != this.currentDraggingElementData && target.parentNode.contains(this.currentDraggingElementData)) {
                 let dropHTML = event.dataTransfer.getData('text/html');
+                console.log(this.currentDraggingElementData , target.parentNode);
+
+                /*if (child && child.parentNode) {
+                    child.parentNode.removeChild(child); // safer than assuming the parent
+                }*/
+
                 target.parentNode.removeChild(this.currentDraggingElementData);
                 target.insertAdjacentHTML('beforebegin' , dropHTML);
                 this.addDragAndDropEventsListenerToCard(target.previousSibling);
