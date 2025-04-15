@@ -1,6 +1,7 @@
 import CardElement from "./card-element";
 import { initDropdowns } from 'flowbite'
 import { EventBus } from './../utilities/event-bus';
+import {dropCardShareState} from "./../utilities/drop-card-share-state"
 class ListContainer {
     ulTagContainerElement;
 
@@ -110,26 +111,28 @@ class ListContainer {
             console.log('dragenter list' , event.target);
         })
         this.ulTagContainerElement.addEventListener("dragover", (event) => {
-            console.log('dragover list' , event.target);
+            //console.log('dragover list' , event.target);
             event.preventDefault();
         })
         this.ulTagContainerElement.addEventListener("dragleave", (event) => {
-            console.log('dragleave list' , event.target);
+            //console.log('dragleave list' , event.target);
         })
         this.ulTagContainerElement.addEventListener("dragend", (event) => {
-            console.log('dragend list'  , event.target);
+            //console.log('dragend list'  , event.target);
             event.target.classList.remove("dragging-element");
             initDropdowns()
         })
         this.ulTagContainerElement.addEventListener("drop", (event) => {
-            console.log('drop list' , event.target , this.currentDraggingElementData);
-
             event.preventDefault();
-            if(this.currentDraggingElementData) {
-                this.ulTagContainerElement.appendChild(this.currentDraggingElementData);
-                this.currentDraggingElementData = null;
+            if(dropCardShareState.get()) {
+                this.ulTagContainerElement.appendChild(dropCardShareState.get().element);
+                dropCardShareState.clear()
                 //EventBus.dispatchEvent(new CustomEvent('finishDropCard' , { detail: {  finish : true } } ));
             }
+            //console.log('drop list' , event.target , this.currentDraggingElementData);
+            /*
+
+            */
         })
 
     }

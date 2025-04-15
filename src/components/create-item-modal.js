@@ -2,9 +2,11 @@ import { EventBus } from './../utilities/event-bus';
 class ItemModel {
 
     modalHeaderNameTag;
-    modalInputTag;
+    modalInputTag ;
+    itemCreatingType; // 0 : default ; 1 : board ; 2 : list ; 3 : card
 
     constructor() {
+        this.modalInputTag = 0
         EventBus.addEventListener('addNewListEventTrigger' , event => this.prepareModalForAddNewList( event.detail.item ));
     }
 
@@ -98,11 +100,19 @@ class ItemModel {
         this.modalHeaderNameTag.innerHTML = "ایجاد لیست جدید"
         this.modalInputTag = "نام لیست مورد نظر خود را وارد کنید"
         document.getElementById("add-new-item-button-text").innerHTML = "اضافه کردن لیست جدید";
+        this.itemCreatingType = 2;
         //document.getElementById("add-new-item-button").addEventListener('click', event => {this.addNewItemList(event)})
     }
 
     addNewItemHandler = (event) => {
-        console.log("12");
+        if (this.itemCreatingType === 2) {
+            this.addNewCardHandler(event);
+        }
+
+    }
+
+    addNewCardHandler = (event) => {
+        console.log("2");
     }
 
 

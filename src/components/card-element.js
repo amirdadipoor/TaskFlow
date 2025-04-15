@@ -1,6 +1,7 @@
 import {stringify, v4 as uuidv4} from 'uuid';
 import { initDropdowns } from 'flowbite'
 import { EventBus } from './../utilities/event-bus';
+import {dropCardShareState} from "./../utilities/drop-card-share-state"
 class CardElement {
     liTagContainer ;
     cardParentElement;
@@ -158,42 +159,46 @@ class CardElement {
         element.addEventListener('dragstart', (event) => {
             console.log('drag start card' , event.target);
             let targetElement = event.target;
-            EventBus.dispatchEvent(new CustomEvent('draggingCardElement' , { detail: {  targetElement } } ));
+            //EventBus.dispatchEvent(new CustomEvent('draggingCardElement' , { detail: {  targetElement } } ));
+            dropCardShareState.update({element: targetElement});
+
             event.dataTransfer.setData('text/html', event.target.outerHTML);
             event.dataTransfer.dropEffect = 'move';
             event.target.classList.add("dragging-element");
         })
         element.addEventListener('dragenter', (event) => {
-            console.log('drag enter card' , event.target);
+            //console.log('drag enter card' , event.target);
         })
         element.addEventListener('dragover', (event) => {
-            console.log('drag over card' , event.target);
+            //console.log('drag over card' , event.target);
             event.preventDefault();
         })
         element.addEventListener('dragleave', (event) => {
-            console.log('drag leave card' , event.target);
+            //console.log('drag leave card' , event.target);
         })
         element.addEventListener('dragend', (event) => {
-            console.log('drag end card' , event.target);
+            //console.log('drag end card' , event.target);
             event.target.classList.remove("dragging-element");
             initDropdowns()
         })
         element.addEventListener('drop', (event) => {
-            console.log('drop card' , event.target , this.currentDraggingElementData);
+            console.log('drop card' , event.target , dropCardShareState.get().element );
             event.preventDefault();
-            if (this.currentDraggingElementData == null) { return false; }
+            if (dropCardShareState.get() == null) return false;
+            //if (this.currentDraggingElementData == null) { return false; }
             let target = event.target.closest('.draggable');
 
-            if (target != this.currentDraggingElementData && target.parentNode.contains(this.currentDraggingElementData)) {
+            if (target != dropCardShareState.get().element && target.parentNode.contains(dropCardShareState.get().element)) {
                 let dropHTML = event.dataTransfer.getData('text/html');
-                console.log(this.currentDraggingElementData , target.parentNode);
+                //console.log(this.currentDraggingElementData , target.parentNode);
 
                 /*if (child && child.parentNode) {
                     child.parentNode.removeChild(child); // safer than assuming the parent
                 }*/
 
-                target.parentNode.removeChild(this.currentDraggingElementData);
+                target.parentNode.removeChild(dropCardShareState.get().element);
                 target.insertAdjacentHTML('beforebegin' , dropHTML);
+                dropCardShareState.clear();
                 this.addDragAndDropEventsListenerToCard(target.previousSibling);
             }
 
