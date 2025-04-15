@@ -6,7 +6,7 @@ class ItemModel {
     itemCreatingType; // 0 : default ; 1 : board ; 2 : list ; 3 : card
 
     constructor() {
-        this.modalInputTag = 0
+        //this.modalInputTag = 0
         EventBus.addEventListener('addNewListEventTrigger' , event => this.prepareModalForAddNewList( event.detail.item ));
     }
 
@@ -68,7 +68,7 @@ class ItemModel {
         let input = document.createElement("input");
         let inputClassList = ["bg-gray-50","border","border-gray-300","text-gray-900","text-sm","rounded-lg","focus:ring-primary-600","focus:border-primary-600","block","w-full","p-2.5","dark:bg-gray-600","dark:border-gray-500","dark:placeholder-gray-400","dark:text-white","dark:focus:ring-primary-500","dark:focus:border-primary-500"];
         input.type = "text";
-        input.name = "name";
+        //input.name = "name";
         input.id = "add-new-item-input";
         input.required = true;
         input.placeholder = "نام آیتم مورد نظر خود را وارد کنید";
@@ -79,7 +79,7 @@ class ItemModel {
 
         let addButton = document.createElement("button");
         let addButtonClassList = ["text-white","inline-flex","items-center","bg-blue-700","hover:bg-blue-800","focus:ring-4","focus:outline-none","focus:ring-blue-300","font-medium","rounded-lg","text-sm","px-5","py-2.5","text-center","dark:bg-blue-600","dark:hover:bg-blue-700","dark:focus:ring-blue-800"]
-        addButton.type = "submit";
+        addButton.type = "button";
         addButton.classList.add(...addButtonClassList);
         modalBodyForm.appendChild(addButton);
 
@@ -98,7 +98,7 @@ class ItemModel {
 
     prepareModalForAddNewList = (item) => {
         this.modalHeaderNameTag.innerHTML = "ایجاد لیست جدید"
-        this.modalInputTag = "نام لیست مورد نظر خود را وارد کنید"
+        this.modalInputTag.placeholder = "نام لیست مورد نظر خود را وارد کنید"
         document.getElementById("add-new-item-button-text").innerHTML = "اضافه کردن لیست جدید";
         this.itemCreatingType = 2;
         //document.getElementById("add-new-item-button").addEventListener('click', event => {this.addNewItemList(event)})
@@ -112,7 +112,13 @@ class ItemModel {
     }
 
     addNewCardHandler = (event) => {
-        console.log("2");
+        //console.log("addNewCardHandler")
+        let CardName = this.modalInputTag.value.trim();
+        console.log("clicked");
+        if ((typeof CardName === "string" && CardName.length === 0) || CardName === null )  {
+            console.log(CardName );
+        }
+
     }
 
 

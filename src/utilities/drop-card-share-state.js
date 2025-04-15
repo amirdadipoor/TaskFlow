@@ -12,3 +12,5 @@ export const dropCardShareState = {
         this.data = null
     }
 };
+
+// Use a Shared Singleton Object to save drag & drop state
