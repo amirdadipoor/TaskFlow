@@ -30,11 +30,12 @@ class ListSection {
         let l1 = new ListContainer()
         let l2 = new ListContainer()
         let l3 = new ListContainer()
+        let l4 = new ListContainer()
 
         ulTagContainer.appendChild(l1.render("عنوان لیست اول"));
         ulTagContainer.appendChild(l2.render("عنوان لیست دوم"));
         ulTagContainer.appendChild(l3.render("عنوان لیست سوم"));
-        //ulTagContainer.appendChild(l3.render("عنوان لیست چهارم"));
+        ulTagContainer.appendChild(l4.render("عنوان لیست چهارم"));
 
         l2.createNewCardElement("عنوان کارت 1")
         l2.createNewCardElement("عنوان کارت 2")
