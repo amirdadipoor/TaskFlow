@@ -112,11 +112,12 @@ class ItemModel {
     }
 
     addNewCardHandler = (event) => {
-        //console.log("addNewCardHandler")
+
         let CardName = this.modalInputTag.value.trim();
         console.log("clicked");
         if ((typeof CardName === "string" && CardName.length === 0) || CardName === null )  {
-            console.log(CardName );
+            // show errore
+            return false;
         }
 
     }
