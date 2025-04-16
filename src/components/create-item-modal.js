@@ -1,9 +1,11 @@
 import { EventBus } from './../utilities/event-bus';
+import { Modal } from 'flowbite';
 class ItemModel {
 
     modalHeaderNameTag;
     modalInputTag ;
     itemCreatingType; // 0 : default ; 1 : board ; 2 : list ; 3 : card
+    modalObj;
 
     constructor() {
         //this.modalInputTag = 0
@@ -91,7 +93,7 @@ class ItemModel {
 
         addButton.addEventListener("click", (e) => {this.addNewItemHandler(e)})
 
-
+        this.modalObj = new Modal(mainDiv);
 
         return mainDiv;
     }
@@ -119,6 +121,8 @@ class ItemModel {
             // show errore
             return false;
         }
+        this.modalObj.hide();
+        EventBus.dispatchEvent(new CustomEvent('newListItemAdded' , { detail: { CardName } }))
 
     }
 

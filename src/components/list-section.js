@@ -1,8 +1,12 @@
 import ListContainer from "./list-container"
+import { EventBus } from './../utilities/event-bus';
 class ListSection {
 
     ulTagContainerElement;
 
+    constructor() {
+        EventBus.addEventListener('newListItemAdded' , event => this.createAndAddNewListElement(event.detail.CardName));
+    }
 
 
     createDivMainContainerBuilder = () => {
@@ -34,8 +38,8 @@ class ListSection {
 
         ulTagContainer.appendChild(l1.render("عنوان لیست اول"));
         ulTagContainer.appendChild(l2.render("عنوان لیست دوم"));
-        ulTagContainer.appendChild(l3.render("عنوان لیست سوم"));
-        ulTagContainer.appendChild(l4.render("عنوان لیست چهارم"));
+        //ulTagContainer.appendChild(l3.render("عنوان لیست سوم"));
+        //ulTagContainer.appendChild(l4.render("عنوان لیست چهارم"));
 
         l2.createNewCardElement("عنوان کارت 1")
         l2.createNewCardElement("عنوان کارت 2")
@@ -46,6 +50,12 @@ class ListSection {
         //empty.appendChild(mainDiv);
 
         return mainDiv;
+    }
+
+    createAndAddNewListElement = (elementName) => {
+        //console.log(elementName);
+        let myNewList = new ListContainer();
+        this.ulTagContainerElement.appendChild(myNewList.render(elementName));
     }
 
     addNewListToListContainer = () => {

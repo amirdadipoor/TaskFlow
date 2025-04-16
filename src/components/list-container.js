@@ -8,9 +8,9 @@ class ListContainer {
     currentDraggingElementData = null;
 
     constructor() {
-        EventBus.addEventListener('draggingCardElement', (e) => {
+        /*EventBus.addEventListener('draggingCardElement', (e) => {
             this.currentDraggingElementData = e.detail.targetElement;
-        });
+        });*/
     }
 
     createListItemMainElement = (color) => {
