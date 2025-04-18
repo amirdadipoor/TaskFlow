@@ -1,18 +1,43 @@
 import { EventBus } from './../utilities/event-bus';
 import { Modal } from 'flowbite';
+import Swal from 'sweetalert2'
 class ItemModel {
 
     modalHeaderNameTag;
     modalInputTag ;
     itemCreatingType; // 0 : default ; 1 : board ; 2 : list ; 3 : card
     modalObj;
+    addbuttonSpan;
+    modalContainerBody;
 
     constructor() {
         //this.modalInputTag = 0
         EventBus.addEventListener('addNewListEventTrigger' , event => this.prepareModalForAddNewList( event.detail.item ));
     }
 
-    render () {
+    render(){
+        Swal.fire({
+            title: "Submit your Github username",
+            input: "text",
+            inputAttributes: {
+                autocapitalize: "off"
+            },
+            showCancelButton: true,
+            confirmButtonText: "Look up",
+            showLoaderOnConfirm: true,
+            /*preConfirm: async (login) => {
+
+
+            },
+            allowOutsideClick: () => !Swal.isLoading()*/
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+            }
+        });
+    }
+
+    renderBug () {
         let mainDiv = document.createElement("div");
         let mainDivClassList = ["hidden","overflow-y-auto","overflow-x-hidden","fixed","top-0","right-0","left-0","z-50","justify-center","items-center","w-full","md:inset-0","h-[calc(100%-1rem)]","max-h-full"]
         mainDiv.classList.add(...mainDivClassList);
@@ -84,9 +109,15 @@ class ItemModel {
         addButton.type = "button";
         addButton.classList.add(...addButtonClassList);
         modalBodyForm.appendChild(addButton);
+        //addButton.setAttribute("data-modal-toggle" ,"create-item-modal")
+
+        this.addbuttonSpan = document.createElement("span");
+        this.addbuttonSpan.classList.add("me-1");
+        this.addbuttonSpan.classList.add("-ms-1");
+        this.addbuttonSpan.innerText = "اضافه کردن ایتم جدید" ;
+        addButton.appendChild(this.addbuttonSpan);
 
         addButton.innerHTML += `
-            <span id="add-new-item-button-text" class="me-1 -ms-1">اضافه کردن ایتم جدید</span>
             <svg class=" w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
         `;
 
@@ -95,13 +126,15 @@ class ItemModel {
 
         this.modalObj = new Modal(mainDiv);
 
+        //this.modalContainerBody = mainDiv
+
         return mainDiv;
     }
 
     prepareModalForAddNewList = (item) => {
         this.modalHeaderNameTag.innerHTML = "ایجاد لیست جدید"
         this.modalInputTag.placeholder = "نام لیست مورد نظر خود را وارد کنید"
-        document.getElementById("add-new-item-button-text").innerHTML = "اضافه کردن لیست جدید";
+        this.addbuttonSpan.innerText = "اضافه کردن لیست جدید";
         this.itemCreatingType = 2;
         //document.getElementById("add-new-item-button").addEventListener('click', event => {this.addNewItemList(event)})
     }
@@ -119,11 +152,29 @@ class ItemModel {
         console.log("clicked");
         if ((typeof CardName === "string" && CardName.length === 0) || CardName === null )  {
             // show errore
+            this.showErrorInvalidListName()
             return false;
         }
-        this.modalObj.hide();
-        EventBus.dispatchEvent(new CustomEvent('newListItemAdded' , { detail: { CardName } }))
 
+        document.querySelectorAll('.fixed.inset-0.z-40').forEach(el => el.remove());
+
+        this.modalObj.toggle();
+
+        //this.modalObj.hide();
+         //new Modal(this.modalContainerBody).toggle();
+        //EventBus.dispatchEvent(new CustomEvent('newListItemAdded' , { detail: { CardName } }))
+
+    }
+
+    showErrorInvalidListName = () => {
+        Swal.fire({
+            text: 'نام انتخابی شما برای لیست مجاز نیست',
+            icon: 'error',
+            confirmButtonText: 'باشه',
+            timerProgressBar: true,
+            showCloseButton: true,
+            timer: 2000,
+        })
     }
 
 
