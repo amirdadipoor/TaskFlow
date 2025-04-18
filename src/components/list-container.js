@@ -4,23 +4,23 @@ import { EventBus } from './../utilities/event-bus';
 import {dropCardShareState} from "./../utilities/drop-card-share-state"
 class ListContainer {
     ulTagContainerElement;
+    buttonAddNewCardElement;
+    listIndex;
+
 
     currentDraggingElementData = null;
 
-    constructor() {
-        /*EventBus.addEventListener('draggingCardElement', (e) => {
-            this.currentDraggingElementData = e.detail.targetElement;
-        });*/
+    constructor(index) {
+        this.listIndex = index;
+        console.log(index);
     }
 
-    createListItemMainElement = (color) => {
-        // "#7AB2B2"
-        // we get background color in input
+    createListItemMainElement = () => {
+
 
         let li = document.createElement("li");
         li.classList.add("list-style");
-        //li.style.right = "2%";
-        //li.style.backgroundColor = color;
+
 
         return li;
 
@@ -57,8 +57,16 @@ class ListContainer {
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
             </svg>
         `;
+
+        this.buttonAddNewCardElement = button
+        button.addEventListener("click", (e) => {this.createNewCardItemHandLer()})
+
         return button;
 
+    }
+
+    createNewCardItemHandLer = () => {
+        EventBus.dispatchEvent(new CustomEvent('addNewCardEventTrigger' , { detail: { item : "card"  , index : this.listIndex} }));
     }
 
     createDeleteListButton = () => {
@@ -88,7 +96,7 @@ class ListContainer {
 
 
     render = (listName) => {
-        let mainLI = this.createListItemMainElement("#7AB2B2");
+        let mainLI = this.createListItemMainElement();
         let header = this.createElementHeaderTag(listName);
         this.createUlTagContainerElement();
         let addNewItemSpan = this.createSpanElement();

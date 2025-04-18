@@ -3,9 +3,14 @@ import { EventBus } from './../utilities/event-bus';
 class ListSection {
 
     ulTagContainerElement;
+    elementsObjList;
+    listIndexVector;
 
     constructor() {
-        EventBus.addEventListener('newListItemAdded' , event => this.createAndAddNewListElement(event.detail.CardName));
+        this.elementsObjList = new Array();
+        this.listIndexVector = 0;
+        EventBus.addEventListener('newListItemAdded' , event => this.createAndAddNewListElement(event.detail.ListName));
+        EventBus.addEventListener('newCardItemAdded' , event => this.createAndAddNewCardElement(event.detail.CardName , event.detail.index));
     }
 
 
@@ -31,10 +36,13 @@ class ListSection {
 
         mainDiv.appendChild(ulTagContainer);
 
-        let l1 = new ListContainer()
-        let l2 = new ListContainer()
-        let l3 = new ListContainer()
-        let l4 = new ListContainer()
+        let l1 = new ListContainer(this.listIndexVector++)
+        let l2 = new ListContainer(this.listIndexVector++)
+        //let l3 = new ListContainer()
+        //let l4 = new ListContainer()
+
+        this.elementsObjList.push(l1)
+        this.elementsObjList.push(l2)
 
         ulTagContainer.appendChild(l1.render("عنوان لیست اول"));
         ulTagContainer.appendChild(l2.render("عنوان لیست دوم"));
@@ -53,14 +61,17 @@ class ListSection {
     }
 
     createAndAddNewListElement = (elementName) => {
-        //console.log(elementName);
-        let myNewList = new ListContainer();
+
+        let myNewList = new ListContainer(this.listIndexVector++);
+        this.elementsObjList.push(myNewList)
         this.ulTagContainerElement.appendChild(myNewList.render(elementName));
     }
 
-    addNewListToListContainer = () => {
-        let newlist = list;
+    createAndAddNewCardElement = (elementName , index) => {
+        let myNewCard = this.elementsObjList[index].createNewCardElement(elementName);
     }
+
+
 
     oldrender = () =>{
         return `
