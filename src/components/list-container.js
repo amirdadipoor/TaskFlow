@@ -17,10 +17,8 @@ class ListContainer {
 
     createListItemMainElement = () => {
 
-
         let li = document.createElement("li");
         li.classList.add("list-style");
-
 
         return li;
 
@@ -89,7 +87,7 @@ class ListContainer {
 
     createNewCardElement = (cardname) => {
         let Card = new CardElement();
-        //console.log(Card.render(cardname));
+
         this.ulTagContainerElement.appendChild(Card.render(cardname));
     }
 
@@ -135,12 +133,9 @@ class ListContainer {
             if(dropCardShareState.get()) {
                 this.ulTagContainerElement.appendChild(dropCardShareState.get().element);
                 dropCardShareState.clear()
-                //EventBus.dispatchEvent(new CustomEvent('finishDropCard' , { detail: {  finish : true } } ));
-            }
-            //console.log('drop list' , event.target , this.currentDraggingElementData);
-            /*
 
-            */
+            }
+
         })
 
     }

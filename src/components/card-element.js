@@ -150,7 +150,7 @@ class CardElement {
         this.liTagContainer.appendChild(this.createMainDivElement(CardName))
         initDropdowns();
         this.addDragAndDropEventsListenerToCard(this.liTagContainer)
-        //initTooltips();
+
 
         return this.liTagContainer;
     }
@@ -159,7 +159,7 @@ class CardElement {
         element.addEventListener('dragstart', (event) => {
             console.log('drag start card' , event.target);
             let targetElement = event.target;
-            //EventBus.dispatchEvent(new CustomEvent('draggingCardElement' , { detail: {  targetElement } } ));
+
             dropCardShareState.update({element: targetElement});
 
             event.dataTransfer.setData('text/html', event.target.outerHTML);
@@ -190,11 +190,7 @@ class CardElement {
 
             if (target != dropCardShareState.get().element && target.parentNode.contains(dropCardShareState.get().element)) {
                 let dropHTML = event.dataTransfer.getData('text/html');
-                //console.log(this.currentDraggingElementData , target.parentNode);
 
-                /*if (child && child.parentNode) {
-                    child.parentNode.removeChild(child); // safer than assuming the parent
-                }*/
 
                 target.parentNode.removeChild(dropCardShareState.get().element);
                 target.insertAdjacentHTML('beforebegin' , dropHTML);
@@ -204,8 +200,7 @@ class CardElement {
 
             this.currentDraggingElementData = null;
 
-            //console.log('drop card' , event.target);
-            //let draggingCardElement =
+
 
         })
     }

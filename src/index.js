@@ -14,11 +14,8 @@ document.body.appendChild(navbar.render());
 //document.body.innerHTML += sidebar.render();
 document.body.appendChild(ListButton.render());
 document.body.appendChild(list.render());
-//document.body.innerHTML += list.oldrender();
-//document.body.innerHTML += ItemModel.oldrender();
+
 
 //document.body.appendChild(ItemModel.render());
 let mySwalModals = new ItemSwalModel();
 
-
-//console.log("123")
