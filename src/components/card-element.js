@@ -136,7 +136,7 @@ class CardElement {
         let L2DivCardActions = this.createCardActionContainer();
 
         div.appendChild(L2DivCardName);
-        div.appendChild(L2DivCardActions);
+        // div.appendChild(L2DivCardActions); // card actions features disabled in setting
 
         return div;
     }
